@@ -287,33 +287,4 @@ REFERENCES [dbo].[Usuario] ([IdUsuario])
 GO
 ALTER TABLE [dbo].[Publicacion] CHECK CONSTRAINT [FK_Publicacion_Usuario]
 
-////VIEWS
-CREATE   VIEW [dbo].[vw_UsersDomain] AS
-SELECT	sAMaccountname UsuarioNombre
-		,UPPER(name) NombreCompleto
-		,UPPER(givenname) Nombres
-		,UPPER(sn) Apellidos
-		,mail Email
-		,postalCode  CodigoEmpleado
-		,UPPER(company) Entidad
-		,telephonenumber  Telefono
-		,UPPER(department) Departamento
-		,UserAccountControl
-		,objectSid
-		,UPPER(title) Puesto           
-FROM OpenQuery(ADSI, 'SELECT title
-				, objectSid		
-				, UserAccountControl
-				, department
-				, telephonenumber
-				, company		
-				, postalCode
-				, mail
-				, givenname
-				, sn
-				, name	
-				, sAMaccountname  FROM ''LDAP://DC=GROUP, DC=local'' WHERE objectCategory = ''Person''  AND objectCategory=''user'' ')
-				WHERE postalCode IS NOT NULL
-
-
 GO
